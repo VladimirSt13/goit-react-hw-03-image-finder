@@ -1,28 +1,13 @@
-import { Component } from 'react';
-import { fetchPics } from '../../services/api';
+import { ImageGalleryItem } from '../ImageGalleryItem/ImageGalleryItem';
 
-export class ImageGallery extends Component {
-  state = {
-    data: '',
-  };
-  getData = async (query, page) => {
-    const response = await fetchPics(query, page);
-    this.setState({ data: response });
-  };
-
-  render() {
-    this.getData(this.props.query, this.props.page);
-    console.log(this.state.data);
-    return (
+export const ImageGallery = ({ images }) => {
+  return (
+    images.length > 0 && (
       <ul className="ImageGallery">
-        <li className="ImageGalleryItem">
-          <img src="" alt="" className="ImageGalleryItem-image" />
-        </li>
+        {images.map(img => (
+          <ImageGalleryItem key={img.id} img={img} />
+        ))}
       </ul>
-    );
-  }
-}
-
-{
-  /* this.state.data && this.state.data.map(card => ( )) */
-}
+    )
+  );
+};
