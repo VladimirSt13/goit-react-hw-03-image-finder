@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 import { TailSpin } from 'react-loader-spinner';
 
 export const Loader = ({ visible }) => {
@@ -15,4 +17,8 @@ export const Loader = ({ visible }) => {
       />
     </div>
   );
+};
+
+Loader.propTypes = {
+  visible: PropTypes.bool.isRequired,
 };

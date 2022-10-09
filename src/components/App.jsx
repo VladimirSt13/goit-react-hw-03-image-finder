@@ -13,7 +13,9 @@ export class App extends Component {
     images: [],
     loadMore: false,
     loader: false,
-    modal: false,
+    showModal: false,
+    bigImage: '',
+    alt: '',
   };
 
   async componentDidUpdate(prevProps, prevState) {
@@ -38,6 +40,14 @@ export class App extends Component {
     }
   }
 
+  toggleModal = () => {
+    this.setState(({ showModal }) => ({ showModal: !showModal }));
+  };
+
+  showBigImage = (bigImage, alt) => {
+    this.setState({ bigImage, alt, showModal: true });
+  };
+
   changeQuery = value => {
     this.setState({ query: value, page: 1, images: [] });
   };
@@ -47,14 +57,18 @@ export class App extends Component {
   };
 
   render() {
-    console.log('this.state', this.state);
+    const { images, loadMore, loader, showModal, bigImage, alt } = this.state;
     return (
       <>
         <Searchbar onSubmit={this.changeQuery} />
-        <ImageGallery images={this.state.images} />
-        {this.state.loadMore && <Button onClick={this.loadMore} />}
-        <Loader visible={this.state.loader} />
-        {this.state.modal && <Modal />}
+        <ImageGallery images={images} onClick={this.showBigImage} />
+        {loadMore && <Button onClick={this.loadMore} />}
+        <Loader visible={loader} />
+        {showModal && (
+          <Modal onClose={this.toggleModal}>
+            <img src={bigImage} alt={alt} />
+          </Modal>
+        )}
       </>
     );
   }
