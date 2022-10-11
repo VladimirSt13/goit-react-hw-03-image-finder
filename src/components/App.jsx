@@ -58,6 +58,7 @@ export class App extends Component {
 
   render() {
     const { images, loadMore, loader, showModal, bigImage, alt } = this.state;
+
     return (
       <>
         <Searchbar onSubmit={this.changeQuery} />
