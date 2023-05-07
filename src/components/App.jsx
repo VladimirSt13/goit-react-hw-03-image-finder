@@ -33,7 +33,7 @@ export class App extends Component {
           images: [...state.images, ...hits],
           loadMore: totalHits > 12 * page,
           loader: false,
-        }), scrollAfterGetPics());
+        }), this.scrollAfterGetPics());
       } catch (error) {
         console.log('error', error);
       }
