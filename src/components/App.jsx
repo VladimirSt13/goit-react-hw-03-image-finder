@@ -33,7 +33,7 @@ export class App extends Component {
           images: [...state.images, ...hits],
           loadMore: totalHits > 12 * page,
           loader: false,
-        }));
+        }), scrollAfterGetPics());
       } catch (error) {
         console.log('error', error);
       }
@@ -55,6 +55,13 @@ export class App extends Component {
   loadMore = () => {
     this.setState(state => ({ page: state.page + 1 }));
   };
+
+  scrollAfterGetPics = () => {
+    window.scrollTo({
+      top: document.documentElement.scrollHeight,
+      behavior: 'smooth',
+    });
+  }
 
   render() {
     const { images, loadMore, loader, showModal, bigImage, alt } = this.state;
