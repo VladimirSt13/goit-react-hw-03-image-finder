@@ -29,11 +29,15 @@ export class App extends Component {
         const { data } = await fetchPics(query, page);
         const { hits, totalHits } = data;
 
-        this.setState(state => ({
-          images: [...state.images, ...hits],
-          loadMore: totalHits > 12 * page,
-          loader: false,
-        }), this.scrollAfterGetPics());
+        this.setState(
+          state => ({
+            images: [...state.images, ...hits],
+            loadMore: totalHits > 12 * page,
+            loader: false,
+          }),
+
+          this.scrollAfterGetPics
+        );
       } catch (error) {
         console.log('error', error);
       }
@@ -58,10 +62,10 @@ export class App extends Component {
 
   scrollAfterGetPics = () => {
     window.scrollTo({
-      top: document.documentElement.scrollHeight,
+      top: document.documentElement.scrollHeight * 50,
       behavior: 'smooth',
     });
-  }
+  };
 
   render() {
     const { images, loadMore, loader, showModal, bigImage, alt } = this.state;
